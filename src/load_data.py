@@ -25,10 +25,3 @@ df1.to_csv("data/raw/{symbol}_raw.csv".format(symbol=ticker_symbol1))
 df2 = yf.download(ticker_symbol2, start=start_date,end=end_date)
 #print(df2.head())
 df2.to_csv("data/raw/{symbol}_raw.csv".format(symbol=ticker_symbol2))
-
-
-"""""
-Data constitutes of : | Price | Close | High | Low | Open | Volume 
-                       Ticker | SYMBOL --------------------------- 
-                       Date   | 
-""" 
