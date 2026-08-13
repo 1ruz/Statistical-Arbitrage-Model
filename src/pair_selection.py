@@ -5,7 +5,7 @@ import statsmodels.api as sm
 
 
 def get_df(ticker1, ticker2): 
-    df = pd.read_csv("data/processed/{s1}_{s2}_data.csv".format(s1=ticker1, s2=ticker2))
+    df = pd.read_csv("data/processed/{s1}_{s2}_data.csv".format(s1=ticker1, s2=ticker2),index_col=0, parse_dates=True)
     return df 
 
 # calculate correlation (corrrelation check)
