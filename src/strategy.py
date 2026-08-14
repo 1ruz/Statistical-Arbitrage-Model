@@ -16,15 +16,15 @@ Signal = 1 for a long
 
 def strategy(z_score): 
     signal = pd.Series(0, index=z_score.index)
-    signal[z_score > 2] = -1 
-    signal[z_score < -2] = 1 
+    signal.loc[z_score > 2] = -1 
+    signal.loc[z_score < -2] = 1 
 
     return signal 
 
 
 if __name__ == "__main__": 
     spread = calculate_spread("EWA", "EWC")
-    z_score = calculate_zscore(spread)
+    z_score = calculate_zscore(20, spread)
     print(strategy(z_score))
 
 
