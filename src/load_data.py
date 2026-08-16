@@ -2,7 +2,7 @@ import yfinance as yf
 import numpy as np 
 from datetime import datetime, timedelta
 
-""" picking correlated tickers that may be interesting to take a lot at to begin with 
+""" Picking correlated tickers that may be interesting to take a lot at to begin with 
     1) SPY vs QQQ 
     2) Apple (AAPL) vs Microsoft (MSFT)
     3) Google (GOOGL) vs Facebook (META)
@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
     
 """
 
-# we will use the last 2 years of daily data for our experiments
+# we will use the last 5 years of daily data for our experiments
 
 def load_data(ticker1, ticker2): 
     end_date = datetime.today().strftime("%Y-%m-%d")

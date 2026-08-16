@@ -57,7 +57,8 @@ def compute_hedge_ratio(ticker1, ticker2):
     slope = coefficients.params[1]
 
     return slope 
-    
+""" 
+"""
 
 def pair_selection_results(ticker1, ticker2): 
     corr = correlation_test(ticker1, ticker2)

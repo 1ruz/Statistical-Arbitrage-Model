@@ -14,7 +14,7 @@ Signal = -1 for a short
 Signal = 1 for a long  
 """
 
-def strategy(z_score): 
+def get_signal(z_score): 
     signal = pd.Series(0, index=z_score.index)
     signal.loc[z_score > 2] = -1 
     signal.loc[z_score < -2] = 1 
@@ -25,6 +25,6 @@ def strategy(z_score):
 if __name__ == "__main__": 
     spread = calculate_spread("EWA", "EWC")
     z_score = calculate_zscore(20, spread)
-    print(strategy(z_score))
+    print(get_signal(z_score))
 
 

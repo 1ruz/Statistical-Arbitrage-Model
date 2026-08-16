@@ -17,9 +17,18 @@ by averaging subsets of a fixed window size
 def calculate_mean(window, spread): 
     return spread.rolling(window).mean()
 
+""" 
+Calculates the rolling standard deviation or in other words 
+the moving standard deviation by averaging subsets 
+of a fixed window size 
+"""
+
 def calculate_std(window, spread): 
     return spread.rolling(window).std()
 
+""" 
+Calculates the z_score 
+"""
 def calculate_zscore(window, spread): 
     rolling_mean = calculate_mean(window,spread)
     rolling_std = calculate_std(window,spread)
