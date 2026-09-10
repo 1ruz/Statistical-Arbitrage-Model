@@ -1,6 +1,7 @@
 import yfinance as yf
 import numpy as np 
 from datetime import datetime, timedelta
+from config import ticker1, ticker2
 
 """ Picking correlated tickers that may be interesting to take a lot at to begin with 
     1) SPY vs QQQ 
@@ -27,4 +28,4 @@ def load_data(ticker1, ticker2):
     #print(df2.head())
     df2.to_csv("data/raw/{symbol}_raw.csv".format(symbol=ticker2))
 
-load_data("EWA", "EWC")
+load_data(ticker1, ticker2)

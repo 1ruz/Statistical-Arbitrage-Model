@@ -1,5 +1,4 @@
 import pandas as pd 
-import matplotlib.pyplot as plt
 from spread import calculate_spread, calculate_zscore
 from strategy import get_signal
 
@@ -43,15 +42,3 @@ def cumulative_returns(returns):
     return returns.cumsum()
 
 
-
-if __name__ == "__main__": 
-    spread = calculate_spread("EWA", "EWC")
-    zscore = calculate_zscore(20, spread)
-    signal = get_signal(zscore)
-    shift_sig = shift_signal(signal)
-    spread_diff = calculate_spread_change(spread)
-    returns = calculate_return(shift_sig, spread_diff)
-    cum_returns = cumulative_returns(returns)
-
-    cum_returns.plot()
-    plt.show()

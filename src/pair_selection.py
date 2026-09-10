@@ -58,11 +58,14 @@ def compute_hedge_ratio(ticker1, ticker2):
 
     return slope 
 """ 
+Calculates whether two tickers satisfy the correlation and cointegration test 
+requirements and records either "Sucess" or "Failure" in a CSV file
 """
 
 def pair_selection_results(ticker1, ticker2): 
     corr = correlation_test(ticker1, ticker2)
     p_val = cointegration_test(ticker1, ticker2)[1]
+    passing = False 
 
     print(corr)
     print(p_val)
@@ -73,6 +76,9 @@ def pair_selection_results(ticker1, ticker2):
     else: 
         with open("data/results/results.csv", "a") as file:
             file.write("{symbol1},{symbol2} - Success\n".format(symbol1=ticker1, symbol2=ticker2))
+            passing = True 
+
+    return corr, p_val, passing 
 
 if __name__ == "__main__":
     pair_selection_results("EWA", "EWC")

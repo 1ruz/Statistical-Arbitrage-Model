@@ -22,9 +22,3 @@ def get_signal(z_score):
     return signal 
 
 
-if __name__ == "__main__": 
-    spread = calculate_spread("EWA", "EWC")
-    z_score = calculate_zscore(20, spread)
-    print(get_signal(z_score))
-
-
