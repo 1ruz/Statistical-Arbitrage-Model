@@ -1,5 +1,4 @@
 import pandas as pd 
-from spread import calculate_spread,calculate_zscore
 
 """ 
 Generally for pairs trading if the z-score is above 2 std, 
@@ -21,4 +20,29 @@ def get_signal(z_score):
 
     return signal 
 
+def get_stateful_signal(z_score): 
+    signal = pd.Series(0, index=z_score.index)
 
+    position = 0 
+
+    for i in range(len(z_score)): 
+        z = z_score.iloc[i]
+
+        if position == 0: 
+            if z > 2: 
+                position = -1 
+            elif z < -2: 
+                position = 1
+        elif position == -1: 
+            # Exit short when spread returns toward the mean 
+            if z < 0.5: 
+                position = 0 
+
+        elif position == 1: 
+            # Exit long when spread returns toward the mean 
+            if z > -0.5: 
+                position = 0
+
+        signal.iloc[i] = position 
+
+    return signal 

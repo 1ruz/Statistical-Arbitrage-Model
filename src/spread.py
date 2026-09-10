@@ -1,45 +1,42 @@
-from pair_selection import compute_hedge_ratio, get_df
-
+from src.config import WINDOW 
 """ 
-A spread is 
-Spread can be calculated using the following formula 
-spread = ticker2 - hedge_ratio * ticker1
+Functions for constructing the price spread and 
+calculating rolling statistics and z-scores. 
 """
-def calculate_spread(ticker1, ticker2): 
-    df = get_df(ticker1, ticker2)
-    spread = df[ticker2+"_close"] - (compute_hedge_ratio(ticker1, ticker2) * df[ticker1+"_close"]) 
+def calculate_spread(price1, price2, hedge_ratio): 
+    """ 
+    Calculates the spread between two assets using the hedge ratio. 
+    """
+    spread = price2 - (hedge_ratio * price1) 
     return spread 
 
-""" 
-A rolling mean or in other words the moving average smooths data 
-by averaging subsets of a fixed window size 
-"""
-def calculate_mean(window, spread): 
-    return spread.rolling(window).mean()
 
-""" 
-Calculates the rolling standard deviation or in other words 
-the moving standard deviation by averaging subsets 
-of a fixed window size 
-"""
+def calculate_mean(spread): 
+    """ 
+    A rolling mean or in other words the moving average smooths data 
+    by averaging subsets of a fixed window size 
+    """
+    return spread.rolling(WINDOW).mean()
 
-def calculate_std(window, spread): 
-    return spread.rolling(window).std()
 
-""" 
-Calculates the z_score 
-"""
-def calculate_zscore(window, spread): 
-    rolling_mean = calculate_mean(window,spread)
-    rolling_std = calculate_std(window,spread)
+def calculate_std(spread): 
+    """ 
+    Calculates the rolling standard deviation or in other words 
+    the moving standard deviation by averaging subsets 
+    of a fixed window size 
+    """
+    return spread.rolling(WINDOW).std()
+
+def calculate_zscore(spread): 
+    """ 
+    Calculates the rolling z_score of the spread
+    """
+
+    rolling_mean = calculate_mean(spread)
+    rolling_std = calculate_std(spread)
 
     z_score = (spread - rolling_mean) / rolling_std
     return z_score 
-
-
-if __name__ == "__main__": 
-    spread = calculate_spread("EWA", "EWC")
-    print(calculate_zscore(20, spread)) 
 
 
 
