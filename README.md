@@ -20,7 +20,7 @@ The model:
 10. Evaluates performance on an unseen test period.
 
 ## Project Structure
-
+```
 Statistical-Arbitrage-Model/
 
 ├── data/
