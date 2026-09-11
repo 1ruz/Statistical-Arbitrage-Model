@@ -4,7 +4,7 @@ from src.load_data import load_data
 from src.pair_selection import pair_selection_results
 from src.spread import calculate_zscore, calculate_spread
 from src.strategy import get_signal, get_stateful_signal
-from src.backtester import calculate_spread_change, shift_signal, calculate_return, cumulative_returns
+from src.backtester import shift_signal, calculate_return, cumulative_returns
 from src.metrics import total_returns, sharpe_ratio, sharpe_ratio_active, max_drawdown
 
 
@@ -45,8 +45,7 @@ if __name__ == "__main__":
             print(strategy_name)
 
             shift_sig = shift_signal(sig)
-            spread_diff = calculate_spread_change(spread)
-            returns = calculate_return(shift_sig, spread_diff)
+            returns = calculate_return(shift_sig, price1, price2, hedge_ratio)
             cum_returns = cumulative_returns(returns)
 
             print("Pairs: {}, {}".format(t1, t2))
@@ -54,9 +53,9 @@ if __name__ == "__main__":
             print("--------")
             print("Sharpe ratio: " + str(sharpe_ratio(returns)))
             print("---------")
-            print("Sharpe ratio active: " + sharpe_ratio_active(returns))
+            print("Sharpe ratio active: " + str(sharpe_ratio_active(returns)))
             print("---------")
-            print("Max Drawdown: " + max_drawdown(cum_returns))
+            print("Max Drawdown: " + str(max_drawdown(cum_returns)))
 
 
 

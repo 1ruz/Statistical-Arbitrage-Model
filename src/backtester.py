@@ -1,8 +1,3 @@
-import pandas as pd 
-from spread import calculate_spread, calculate_zscore
-from strategy import get_signal
-
-
 
 def shift_signal(signal): 
 
@@ -19,30 +14,26 @@ def shift_signal(signal):
     return signal.shift(periods = 1, freq = None)
 
 
-def calculate_spread_change(spread): 
-    """ 
-    Calculates the difference between the spread of two adjacent dates and returns the series 
-    """
-    return spread.diff()
-
-
-def calculate_return(signals, spread_change): 
+def calculate_return(signals, price1, price2, hedge_ratio): 
 
     """ 
-    Calculates the return by multiplying the signal by the spread_change 
+    Calculates the daily percentage return of the pairs-trading portfolio 
 
-    A bullish day would be + 
-    +1 * spread_change = +return 
-
-    A bearish day would be - 
-    -1 * spread_change = - return 
+    The P&L is determined by the signal and the price changes of both assets and is 
+    adjusted by the hedge ratio
     """
-    returns = signals * spread_change 
-    return returns 
+    price1_change = price1.diff()
+    price2_change = price2.diff()
+
+    pnl = signals * (price2_change - hedge_ratio * price1_change)
+
+    capital = price2 + abs(hedge_ratio) * price1
+
+    return pnl / capital 
 
 def cumulative_returns(returns): 
     """ 
-    Calcuates the cumulative returns 
+    Calculates the cumulative returns 
     """
     return returns.cumsum()
 
