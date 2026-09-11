@@ -1,3 +1,4 @@
+from config import TRANSACTION_COST
 
 def shift_signal(signal): 
 
@@ -29,12 +30,19 @@ def calculate_return(signals, price1, price2, hedge_ratio):
 
     capital = price2 + abs(hedge_ratio) * price1
 
-    return pnl / capital 
+    gross_returns = pnl / capital 
+
+    trades = signals.diff().abs()
+    transanction_costs = trades * TRANSACTION_COST
+
+    net_returns = gross_returns - transanction_costs
+
+    return net_returns
 
 def cumulative_returns(returns): 
     """ 
     Calculates the cumulative returns 
     """
-    return returns.cumsum()
+    return (1 + returns).cumprod() - 1
 
 

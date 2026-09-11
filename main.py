@@ -6,6 +6,7 @@ from src.spread import calculate_zscore, calculate_spread
 from src.strategy import get_signal, get_stateful_signal
 from src.backtester import shift_signal, calculate_return, cumulative_returns
 from src.metrics import total_returns, sharpe_ratio, sharpe_ratio_active, max_drawdown
+import pandas as pd 
 
 
 if __name__ == "__main__": 
@@ -25,6 +26,8 @@ if __name__ == "__main__":
         if passing: 
             passing_pairs.append((t1,t2, hedge_ratio))
 
+    results = []
+
     for t1, t2, hedge_ratio in passing_pairs: 
 
         pair_df = prices[[t1,t2]].dropna()
@@ -42,20 +45,25 @@ if __name__ == "__main__":
 
         for strategy_name, sig in strategies: 
 
-            print(strategy_name)
-
             shift_sig = shift_signal(sig)
             returns = calculate_return(shift_sig, price1, price2, hedge_ratio)
             cum_returns = cumulative_returns(returns)
 
-            print("Pairs: {}, {}".format(t1, t2))
-            print("Total returns: " + str(total_returns(cum_returns)))
-            print("--------")
-            print("Sharpe ratio: " + str(sharpe_ratio(returns)))
-            print("---------")
-            print("Sharpe ratio active: " + str(sharpe_ratio_active(returns)))
-            print("---------")
-            print("Max Drawdown: " + str(max_drawdown(cum_returns)))
+            results.append({
+                            "pair": f"{t1}/{t2}", 
+                            "strategy_name": strategy_name, 
+                            "total_returns" : total_returns(cum_returns), 
+                            "sharpe_ratio": sharpe_ratio(returns), 
+                            "sharpe_ratio_active ": sharpe_ratio_active(returns), 
+                            "max_drawdown" : max_drawdown(cum_returns)
+                            })
+
+    results_df = pd.DataFrame(results)
+    results_df = results_df.sort_values("sharpe_ratio", ascending=False)
+    print(results_df)
+            
+
+            
 
 
 

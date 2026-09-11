@@ -1,5 +1,5 @@
 import numpy as np
-from src.backtester import cumulative_returns, shift_signal, calculate_spread_change, calculate_return
+from src.backtester import cumulative_returns, shift_signal, calculate_return
 from src.spread import calculate_spread, calculate_zscore
 from src.strategy import get_signal
 
