@@ -1,7 +1,4 @@
 import numpy as np
-from src.backtester import cumulative_returns, shift_signal, calculate_return
-from src.spread import calculate_spread, calculate_zscore
-from src.strategy import get_signal
 
 
 def total_returns(cum_returns): 
@@ -35,4 +32,3 @@ def max_drawdown(cum_returns):
     peaks = cum_returns.cummax()
     drawdown = (cum_returns - peaks)
     return drawdown.min()
-    

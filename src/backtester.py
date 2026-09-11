@@ -1,4 +1,4 @@
-from config import TRANSACTION_COST
+from src.config import TRANSACTION_COST
 
 def shift_signal(signal): 
 

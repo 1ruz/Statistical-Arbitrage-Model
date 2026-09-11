@@ -1,9 +1,6 @@
 import yfinance as yf
 import numpy as np 
 from datetime import datetime, timedelta
-from src.config import TICKERS 
-
-
 
 # we will use the last 5 years of daily data for our experiments
 
